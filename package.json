@@ -1,0 +1,24 @@
+{
+  "name": "apis-with-express",
+  "version": "1.0.0",
+  "description": "[WORKSHOP WEBSITE](https://hendrixer.github.io/API-design-v4/lessons/intro-to-express/easy-mode-with-express)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rade58/apis-with-express-workshop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rade58/apis-with-express-workshop/issues"
+  },
+  "homepage": "https://github.com/Rade58/apis-with-express-workshop#readme",
+  "dependencies": {
+    "@types/node": "^18.11.17",
+    "express": "^4.18.2"
+  }
+}
