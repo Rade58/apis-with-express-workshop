@@ -1,4 +1,4 @@
-import app from "./server";
+import app from "./files_server";
 
 const PORT = 3001;
 
