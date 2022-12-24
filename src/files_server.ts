@@ -1,4 +1,4 @@
-// THI WILL BE A NO OP,
+// THI WILL BE A NO-OP,
 // JUST SHOWING HOT TO SEND FILES
 
 import path from "path";
