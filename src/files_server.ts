@@ -7,7 +7,7 @@ import express from "express";
 const app = express();
 
 app.get("/", (req, res) => {
-  console.log("hello from express");
+  console.log(process.env.HELLO);
 
   // res.sendFile(path.resolve("src/files/index.html"));
   res.sendFile(path.resolve("src/files/Cap-Brave.png"));
