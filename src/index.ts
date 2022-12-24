@@ -1,5 +1,3 @@
-// const app = require("./server");
-
 import app from "./server";
 
 const PORT = 3001;
