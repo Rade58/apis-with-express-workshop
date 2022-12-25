@@ -5,6 +5,8 @@ import cors from "cors";
 
 import { protect } from "./modules/auth";
 
+import { createNewUser, signIn } from "./handlers/user";
+
 const app = express();
 
 // YOU CAN LOOK THIS AS AN INFO TO THE BROWSER
@@ -59,5 +61,13 @@ app.use("/api", [protect], router);
   res.json({ message: "hello world " });
 });
  */
+// -----------------------------------------
+// RMEMBER THAT protect MIDDLEWARE DOESN'T APPLY HERE
+// IT IS ONLY FOR THE /api
+// IT WOULD BE STUPID IF IT WOULD APPLY BECAUSE IN HERE
+// WE DARE DEFINING ROUTES FOR SIGNUP/IN
+
+app.post("/user", createNewUser);
+app.post("/signin", signIn);
 
 export default app;
