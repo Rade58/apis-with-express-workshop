@@ -1,9 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
-import type { User } from "@prisma/client";
-
 import type { Request, Response, NextFunction } from "express";
+import type { User } from "@prisma/client";
 
 // FOR SOME REASON I NEED TO IMPORT FROM THIS FILE
 // IN ORDER TO AUGMENTATION ON Request TO BE APPLIED
@@ -80,4 +78,12 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
 
     return;
   }
+};
+
+export const comparePasswords = (password: string, hash: string) => {
+  return bcrypt.compare(password, hash);
+};
+
+export const hashPassword = (password: string) => {
+  return bcrypt.hash(password, 5);
 };
