@@ -35,7 +35,11 @@ app.use(express.urlencoded({ extended: true }));
 //
 app.use("/api", router);
 
-/* app.get("/", (req, res) => {
+// WE CAN PUT MIDDLEWARE THAT WILL SIT ONLY IN FRON OF
+// SPECIFIC ROUTE
+// YOU CAN PUT THEM INTO ARRAY OR YOU CAN JUST ADD THE COMMA SEPARATED,
+// BEFORE YOUR ROUTE
+/* app.get("/", [list of your middlewares], (req, res) => {
   res.status(200);
 
   res.json({ message: "hello world " });
