@@ -45,6 +45,8 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
     return;
   }
 
+  // FIRST PART OF THIS IS Bearer WORD
+  // WE WNT TOKEN (A SECOND PART)
   const [_, token] = bearer.split(" ");
 
   if (!token) {
