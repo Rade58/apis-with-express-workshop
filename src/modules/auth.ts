@@ -15,7 +15,7 @@ import * as types from "../types";
 /**
  *
  * @param user
- * @returns
+ * @returns jwt (string)
  * @description taking a user and creating jwt from user data
  */
 export const createJWT = (user: User) => {
@@ -32,15 +32,11 @@ export const createJWT = (user: User) => {
  * @param req
  * @param res
  * @param next
- * @returns
+ * @returns nothing
  * @description taking token from the cookie and inserting
  * user on req
  */
-export const protect = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const protect = (req: Request, res: Response, next: NextFunction) => {
   const bearer = req.headers.authorization;
 
   if (!bearer) {
@@ -59,7 +55,17 @@ export const protect = async (
   }
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET as string);
+    const payload = jwt.verify(
+      token,
+      process.env.JWT_SECRET as string
+    ) as Exclude<typeof req.user, undefined>;
+
+    req.user = payload;
+
+    console.log({ payload });
+
+    next();
+    return;
   } catch (err) {
     res.status(401);
 
