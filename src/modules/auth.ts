@@ -41,7 +41,7 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
 
   if (!bearer) {
     res.status(401);
-    res.send("Not authorized!");
+    res.send({ message: "Not authorized!" });
     return;
   }
 
@@ -52,7 +52,7 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
   if (!token) {
     console.log("no token inside cookie!");
     res.status(401);
-    res.send("Not authorized!");
+    res.send({ message: "Not authorized!" });
     return;
   }
 
@@ -74,7 +74,7 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
     if (err instanceof Error) {
       res.send(err.message);
     } else {
-      res.send("Not authorized!");
+      res.send({ message: "Not authorized!" });
     }
 
     return;
