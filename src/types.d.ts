@@ -1,5 +1,5 @@
 namespace Express {
   interface Request {
-    blah: string;
+    shsh_secret: string;
   }
 }

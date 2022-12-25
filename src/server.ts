@@ -27,7 +27,9 @@ app.use(express.urlencoded({ extended: true }));
 // BUT WHEN DOING THIS DON'T FORGET TO ALSO MAKE AUGMENTATION INSIDE
 // TYPE DEFINITIONS (I DID IN  types.d.ts FILE)
 app.use((req, res, next) => {
-  req.blah = "shiba";
+  // THIS WILL NOW BE AVAILABLE IN ANY ROUTER DEFINED AFTER THIS
+  req.shsh_secret = "shiba";
+  next();
 });
 
 //
