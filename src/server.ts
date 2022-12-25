@@ -3,6 +3,8 @@ import router from "./router";
 import morgan from "morgan";
 import cors from "cors";
 
+import { protect } from "./modules/auth";
+
 const app = express();
 
 // YOU CAN LOOK THIS AS AN INFO TO THE BROWSER
@@ -45,7 +47,7 @@ app.use(express.urlencoded({ extended: true }));
 }); */
 
 //
-app.use("/api", router);
+app.use("/api", [protect], router);
 
 // WE CAN PUT MIDDLEWARE THAT WILL SIT ONLY IN FRON OF
 // SPECIFIC ROUTE
