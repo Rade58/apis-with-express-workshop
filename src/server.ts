@@ -1,12 +1,15 @@
 import express from "express";
+import router from "./router";
 
 const app = express();
 
-app.get("/", (req, res) => {
+app.use("/api", router);
+
+/* app.get("/", (req, res) => {
   res.status(200);
 
   res.json({ message: "hello world " });
 });
+ */
 
-// module.exports = app;
 export default app;
