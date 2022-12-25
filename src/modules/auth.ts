@@ -80,10 +80,21 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+/**
+ *
+ * @param password
+ * @param hash
+ * @returns boolean
+ */
 export const comparePasswords = (password: string, hash: string) => {
-  return bcrypt.compare(password, hash);
+  return bcrypt.compareSync(password, hash);
 };
 
+/**
+ *
+ * @param password
+ * @returns string (hashed password)
+ */
 export const hashPassword = (password: string) => {
-  return bcrypt.hash(password, 5);
+  return bcrypt.hashSync(password, 5);
 };
