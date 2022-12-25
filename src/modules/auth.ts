@@ -16,7 +16,10 @@ import * as types from "../types";
  * @returns jwt (string)
  * @description taking a user and creating jwt from user data
  */
-export const createJWT = (user: User) => {
+export const createJWT = (user: {
+  id: User["id"];
+  username: User["username"];
+}) => {
   const token = jwt.sign(
     { id: user.id, username: user.username },
     process.env.JWT_SECRET as string
@@ -96,5 +99,5 @@ export const comparePasswords = (password: string, hash: string) => {
  * @returns string (hashed password)
  */
 export const hashPassword = (password: string) => {
-  return bcrypt.hashSync(password, 5);
+  return bcrypt.hashSync(password, 5); // 5 is salt
 };
