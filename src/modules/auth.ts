@@ -39,9 +39,10 @@ export const createJWT = (user: User) => {
 export const protect = (req: Request, res: Response, next: NextFunction) => {
   const bearer = req.headers.authorization;
 
+  console.log({ bearer });
   if (!bearer) {
     res.status(401);
-    res.send({ message: "Not authorized!" });
+    res.json({ message: "Not authorized!" });
     return;
   }
 
@@ -52,7 +53,7 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
   if (!token) {
     console.log("no token inside cookie!");
     res.status(401);
-    res.send({ message: "Not authorized!" });
+    res.json({ message: "Not authorized!" });
     return;
   }
 
@@ -72,9 +73,9 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
     res.status(401);
 
     if (err instanceof Error) {
-      res.send({ message: err.message });
+      res.json({ message: err.message + "!" });
     } else {
-      res.send({ message: "Not authorized!" });
+      res.json({ message: "Not authorized!" });
     }
 
     return;
