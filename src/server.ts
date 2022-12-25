@@ -1,8 +1,12 @@
 import express from "express";
 import router from "./router";
 import morgan from "morgan";
+import cors from "cors";
 
 const app = express();
+
+//
+app.use(cors());
 
 // THIS WILL LOGG SOME CHARACTERISTICS OF THE REQUEST
 app.use(morgan("dev"));
