@@ -6,7 +6,9 @@ const router = Router();
  * Product
  */
 // get all products
-router.get("/product", (req, res) => {});
+router.get("/product", (req, res) => {
+  // res.json({ product: "all" });
+});
 //
 router.get("/product/:id", (req, res) => {});
 //
