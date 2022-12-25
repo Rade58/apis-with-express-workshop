@@ -66,6 +66,8 @@ app.use("/api", [protect], router);
 // IT IS ONLY FOR THE /api
 // IT WOULD BE STUPID IF IT WOULD APPLY BECAUSE IN HERE
 // WE DARE DEFINING ROUTES FOR SIGNUP/IN
+// WHY WOULD YOU HAVE JSONWEBTOKEN IF
+// YOU DIDN'T CREATE USER OR YOU DIDN'T SIGN IN
 
 app.post("/user", createNewUser);
 app.post("/signin", signIn);
