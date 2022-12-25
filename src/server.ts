@@ -26,11 +26,11 @@ app.use(express.urlencoded({ extended: true }));
 // EXAMPLE OF SOME MIDDLEWARE THAT AUGMENTS REQUEST OBJECT
 // BUT WHEN DOING THIS DON'T FORGET TO ALSO MAKE AUGMENTATION INSIDE
 // TYPE DEFINITIONS (I DID IN  types.d.ts FILE)
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   // THIS WILL NOW BE AVAILABLE IN ANY ROUTER DEFINED AFTER THIS
   req.shsh_secret = "shiba";
   next();
-});
+}); */
 
 //
 app.use("/api", router);

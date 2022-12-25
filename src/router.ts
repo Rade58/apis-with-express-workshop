@@ -8,7 +8,8 @@ const router = Router();
 // get all products
 router.get("/product", (req, res) => {
   // res.json({ product: "all" });
-  res.status(200).send({ message: req.shsh_secret });
+  // res.status(200).send({ message: req.shsh_secret });
+  //
   //
 });
 //
