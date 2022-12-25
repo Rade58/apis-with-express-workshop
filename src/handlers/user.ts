@@ -2,15 +2,15 @@ import type { Request, Response } from "express";
 import type * as t from "../types";
 import prisma from "../db";
 
-import { createJWT, hashPassword } from "../modules/auth";
+import { createJWT, hashPassword, comparePasswords } from "../modules/auth";
 
-interface UserData {
+interface UserDataForCreation {
   username: string;
   password: string;
 }
 
 export const createNewUser = async (req: Request, res: Response) => {
-  const body: UserData = req.body;
+  const body: UserDataForCreation = req.body;
 
   const hashed = hashPassword(body.password);
 
@@ -26,5 +26,36 @@ export const createNewUser = async (req: Request, res: Response) => {
     id: user.id,
   });
 
+  res.status(201);
+  res.json({ token });
+};
+
+export const signIn = async (req: Request, res: Response) => {
+  const body: { username: string; password: string } = req.body;
+
+  const user = await prisma.user.findUnique({
+    where: {
+      username: body.username,
+    },
+  });
+
+  if (!user) {
+    res.status(401);
+    res.json({ message: "Not Authorized!" });
+    return;
+  }
+
+  const isValid = comparePasswords(body.password, user.password);
+
+  if (!isValid) {
+    res.status(401);
+    res.json({ message: "Not authorized!" });
+
+    return;
+  }
+
+  const token = createJWT({ id: user.id, username: user.username });
+
+  res.status(200);
   res.json({ token });
 };
