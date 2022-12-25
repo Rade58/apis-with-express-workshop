@@ -82,8 +82,8 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
 
 /**
  *
- * @param password
- * @param hash
+ * @param password in plain text
+ * @param hash hashed password
  * @returns boolean
  */
 export const comparePasswords = (password: string, hash: string) => {
@@ -92,7 +92,7 @@ export const comparePasswords = (password: string, hash: string) => {
 
 /**
  *
- * @param password
+ * @param password in plain text
  * @returns string (hashed password)
  */
 export const hashPassword = (password: string) => {
