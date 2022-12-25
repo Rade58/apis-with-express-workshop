@@ -12,6 +12,12 @@ import type { Request, Response, NextFunction } from "express";
 // THIS I DON'T NEED TO DO IF I AM USING METHODS LIKE get, or use, or post (IN THAT CASE Request OBJECT IS AUGMENTED PROPERLY)
 import * as types from "../types";
 
+/**
+ *
+ * @param user
+ * @returns
+ * @description taking a user and creating jwt from user data
+ */
 export const createJWT = (user: User) => {
   const token = jwt.sign(
     { id: user.id, username: user.username },
