@@ -72,7 +72,7 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
     res.status(401);
 
     if (err instanceof Error) {
-      res.send(err.message);
+      res.send({ message: err.message });
     } else {
       res.send({ message: "Not authorized!" });
     }
