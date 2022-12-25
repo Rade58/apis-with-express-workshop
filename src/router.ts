@@ -24,3 +24,14 @@ router.get("/update/:id", (req, res) => {});
 router.put("/update/:id", (req, res) => {});
 router.post("/update", (req, res) => {});
 router.delete("/update/:id", (req, res) => {});
+
+/**
+ * UpdatePoint
+ */
+router.get("/updatepoint", (req, res) => {});
+router.get("/updatepoint/:id", (req, res) => {});
+router.put("/updatepoint/:id", (req, res) => {});
+router.post("/updatepoint", (req, res) => {});
+router.delete("/updatepoint/:id", (req, res) => {});
+
+export default router;
