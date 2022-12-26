@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import type * as t from "../types";
+// import type * as t from "../../types";
 import prisma from "../db";
 
 import { createJWT, hashPassword, comparePasswords } from "../modules/auth";

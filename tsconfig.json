@@ -2,7 +2,7 @@
   "ts-node": {
     "files": true
   },
-  "files": ["src/index.ts", "src/types.d.ts"],
+  "files": ["src/index.ts", "types.d.ts"],
 
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */

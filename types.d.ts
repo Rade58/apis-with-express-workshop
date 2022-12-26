@@ -4,7 +4,10 @@ declare global {
   namespace Express {
     export interface Request {
       // shsh_secret: string;
-      user?: User;
+      user: {
+        id: User["id"];
+        username: User["username"];
+      };
     }
   }
 }

@@ -8,7 +8,7 @@ import type { User } from "@prisma/client";
 // BUT THIS IS JUST IN CASE WHEN I'M DEFINING MIDDLEWARE
 // IN CASE WHEN I EXPLICITLY AM ASSERTING Request TYPE FOR SOMETHING
 // THIS I DON'T NEED TO DO IF I AM USING METHODS LIKE get, or use, or post (IN THAT CASE Request OBJECT IS AUGMENTED PROPERLY)
-import * as types from "../types";
+// import * as types from "../../types"; // I DON'T NEED THIS
 
 /**
  *

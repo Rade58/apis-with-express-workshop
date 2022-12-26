@@ -1,4 +1,5 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
+import { prisma } from "@prisma/client";
 
 import { body, validationResult } from "express-validator";
 
@@ -45,7 +46,30 @@ router.put(
   }
 );
 // create product
-router.post("/product", (req, res) => {});
+router.post(
+  "/product",
+  [
+    body("name")
+      .exists()
+      .withMessage("'name' doesn't exist on the body")
+      .isString()
+      .withMessage("'name' field isn't a string"),
+  ],
+  async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+
+    //
+
+    if (!errors.isEmpty()) {
+      res.status(400);
+      res.json({ errors: errors.array() });
+    }
+
+    const userId = req.user.id;
+    // TODO
+    // CONNECT PRODUCT TO THE USER
+  }
+);
 //
 router.delete("/product/:id", (req, res) => {
   console.log(req.query);
@@ -58,8 +82,71 @@ router.delete("/product/:id", (req, res) => {
  */
 router.get("/update", (req, res) => {});
 router.get("/update/:id", (req, res) => {});
-router.put("/update/:id", (req, res) => {});
-router.post("/update", (req, res) => {});
+router.put(
+  "/update/:id",
+  [
+    body("title")
+      .optional()
+      .isString()
+      .withMessage("'title' isn't a string'")
+      .isLength({ min: 6, max: 255 })
+      .withMessage(
+        "'title string has less than 6 or more than 255 characters'"
+      ),
+    body("body").optional().isString().withMessage("'body' isn't a string'"),
+    body("version")
+      .optional()
+      .isString()
+      .withMessage("'version' isn't a string'"),
+    body("asset").optional().isString().withMessage("'asset' isn't a string'"),
+  ],
+  (req: Request, res: Response) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(400);
+      res.json({ errors: errors.array() });
+    }
+
+    if (body.length === 0) {
+      res.status(400);
+      res.json({ errors: [{ message: "Body is empty" }] });
+    }
+  }
+);
+router.post(
+  "/update",
+
+  [
+    body("title")
+      .optional()
+      .isString()
+      .withMessage("'title' isn't a string'")
+      .isLength({ min: 6, max: 255 })
+      .withMessage(
+        "'title string has less than 6 or more than 255 characters'"
+      ),
+    body("body").optional().isString().withMessage("'body' isn't a string'"),
+    body("version")
+      .optional()
+      .isString()
+      .withMessage("'version' isn't a string'"),
+    body("asset").optional().isString().withMessage("'asset' isn't a string'"),
+  ],
+  (req: Request, res: Response) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(400);
+      res.json({ errors: errors.array() });
+    }
+
+    if (body.length === 0) {
+      res.status(400);
+      res.json({ errors: [{ message: "Body is empty" }] });
+    }
+  }
+);
 router.delete("/update/:id", (req, res) => {});
 
 /**
@@ -67,8 +154,66 @@ router.delete("/update/:id", (req, res) => {});
  */
 router.get("/updatepoint", (req, res) => {});
 router.get("/updatepoint/:id", (req, res) => {});
-router.put("/updatepoint/:id", (req, res) => {});
-router.post("/updatepoint", (req, res) => {});
+router.put(
+  "/updatepoint/:id",
+  [
+    body("name")
+      .optional()
+      .isString()
+      .withMessage("'name' isn't a string'")
+      .isLength({ min: 6, max: 255 })
+      .withMessage(
+        "'name' string has less than 6 or more than 255 characters'"
+      ),
+    body("description")
+      .optional()
+      .isString()
+      .withMessage("'description' isn't a string'"),
+  ],
+  (req: Request, res: Response) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(400);
+      res.json({ errors: errors.array() });
+    }
+
+    if (body.length === 0) {
+      res.status(400);
+      res.json({ errors: [{ message: "Body is empty" }] });
+    }
+  }
+);
+router.post(
+  "/updatepoint",
+  [
+    body("name")
+      .optional()
+      .isString()
+      .withMessage("'name' isn't a string'")
+      .isLength({ min: 6, max: 255 })
+      .withMessage(
+        "'name' string has less than 6 or more than 255 characters'"
+      ),
+    body("description")
+      .optional()
+      .isString()
+      .withMessage("'description' isn't a string'"),
+  ],
+  (req: Request, res: Response) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(400);
+      res.json({ errors: errors.array() });
+    }
+
+    if (body.length === 0) {
+      res.status(400);
+      res.json({ errors: [{ message: "Body is empty" }] });
+    }
+  }
+);
 router.delete("/updatepoint/:id", (req, res) => {});
 
 export default router;
