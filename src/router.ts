@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
-import { prisma } from "@prisma/client";
+import { prisma, UPDATE_STATUS } from "@prisma/client";
 
-import { body, validationResult } from "express-validator";
+import { body, oneOf, validationResult } from "express-validator";
 
 import { validateInputResult } from "./modules/middlewares";
 
@@ -78,6 +78,32 @@ router.put(
         "'title string has less than 6 or more than 255 characters'"
       ),
     body("body").optional().isString().withMessage("'body' isn't a string'"),
+    oneOf([
+      body("status")
+        .optional()
+        .isString()
+        .withMessage("'status' isn't a string'")
+        .equals(UPDATE_STATUS.IN_PROGRESS)
+        .withMessage("provided value for 'UPDATE_STATUS' not right value"),
+      body("status")
+        .optional()
+        .isString()
+        .withMessage("'status' isn't a string'")
+        .equals(UPDATE_STATUS.ARCHIVED)
+        .withMessage("provided value for 'UPDATE_STATUS' not right value"),
+      body("status")
+        .optional()
+        .isString()
+        .withMessage("'status' isn't a string'")
+        .equals(UPDATE_STATUS.DEPRECATED)
+        .withMessage("provided value for 'UPDATE_STATUS' not right value"),
+      body("status")
+        .optional()
+        .isString()
+        .withMessage("'status' isn't a string'")
+        .equals(UPDATE_STATUS.LIVE)
+        .withMessage("provided value for 'UPDATE_STATUS' not right value"),
+    ]),
     body("version")
       .optional()
       .isString()
@@ -105,6 +131,32 @@ router.post(
         "'title string has less than 6 or more than 255 characters'"
       ),
     body("body").optional().isString().withMessage("'body' isn't a string'"),
+    oneOf([
+      body("status")
+        .optional()
+        .isString()
+        .withMessage("'status' isn't a string'")
+        .equals(UPDATE_STATUS.IN_PROGRESS)
+        .withMessage("provided value for 'UPDATE_STATUS' not right value"),
+      body("status")
+        .optional()
+        .isString()
+        .withMessage("'status' isn't a string'")
+        .equals(UPDATE_STATUS.ARCHIVED)
+        .withMessage("provided value for 'UPDATE_STATUS' not right value"),
+      body("status")
+        .optional()
+        .isString()
+        .withMessage("'status' isn't a string'")
+        .equals(UPDATE_STATUS.DEPRECATED)
+        .withMessage("provided value for 'UPDATE_STATUS' not right value"),
+      body("status")
+        .optional()
+        .isString()
+        .withMessage("'status' isn't a string'")
+        .equals(UPDATE_STATUS.LIVE)
+        .withMessage("provided value for 'UPDATE_STATUS' not right value"),
+    ]),
     body("version")
       .optional()
       .isString()

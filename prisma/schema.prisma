@@ -48,7 +48,7 @@ model Update {
   body    String
   status  UPDATE_STATUS @default(IN_PROGRESS)
   version String?
-  asset   String
+  asset   String?
 
   updatePoints UpdatePoint[]
 
