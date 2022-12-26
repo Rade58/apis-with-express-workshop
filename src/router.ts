@@ -1,5 +1,7 @@
 import { Router } from "express";
 
+import { body, validationResult } from "express-validator";
+
 const router = Router();
 
 /**
@@ -15,7 +17,19 @@ router.get("/product", (req, res) => {
 //
 router.get("/product/:id", (req, res) => {});
 //
-router.put("/product/:id", (req, res) => {});
+router.put("/product/:id", body("name").exists(), async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.status(400);
+
+    res.json({ errors: errors.array() });
+    return;
+  }
+
+  res.end();
+  return;
+});
 // create product
 router.post("/product", (req, res) => {});
 //

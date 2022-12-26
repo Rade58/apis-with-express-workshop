@@ -40,7 +40,7 @@ export const createJWT = (user: {
 export const protect = (req: Request, res: Response, next: NextFunction) => {
   const bearer = req.headers.authorization;
 
-  console.log({ bearer });
+  // console.log({ bearer });
   if (!bearer) {
     res.status(401);
     res.json({ message: "Not authorized!" });
@@ -66,7 +66,7 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
 
     req.user = payload;
 
-    console.log({ payload });
+    // console.log({ payload });
 
     next();
     return;
