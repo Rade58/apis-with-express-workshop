@@ -3,6 +3,8 @@ import { prisma } from "@prisma/client";
 
 import { body, validationResult } from "express-validator";
 
+import { validateInputResult } from "./modules/middlewares";
+
 const router = Router();
 
 /**
@@ -20,26 +22,17 @@ router.get("/product/:id", (req, res) => {});
 //
 router.put(
   "/product/:id",
-  body("name")
-    .exists({ checkNull: true })
-    .withMessage("'name' field doesn't exist on body!")
-    .isString()
-    .withMessage("'name' field isn't a string!"),
-  async (req, res) => {
+  [
+    body("name")
+      .exists({ checkNull: true })
+      .withMessage("'name' field doesn't exist on body!")
+      .isString()
+      .withMessage("'name' field isn't a string!"),
+    validateInputResult,
+  ],
+  async (req: Request, res: Response) => {
     //
-    const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      res.status(400);
-      //
-      const errorsArray = errors.array();
-
-      // console.log({ errorsArray });
-      // console.log(process.env.DATABASE_URL);
-
-      res.json({ errors: errorsArray });
-      return;
-    }
     console.log("It's ok");
     res.end();
     return;
@@ -54,18 +47,9 @@ router.post(
       .withMessage("'name' doesn't exist on the body")
       .isString()
       .withMessage("'name' field isn't a string"),
+    validateInputResult,
   ],
   async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-
-    //
-
-    if (!errors.isEmpty()) {
-      res.status(400);
-      res.json({ errors: errors.array() });
-    }
-
-    const userId = req.user.id;
     // TODO
     // CONNECT PRODUCT TO THE USER
   }
@@ -99,15 +83,9 @@ router.put(
       .isString()
       .withMessage("'version' isn't a string'"),
     body("asset").optional().isString().withMessage("'asset' isn't a string'"),
+    validateInputResult,
   ],
   (req: Request, res: Response) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      res.status(400);
-      res.json({ errors: errors.array() });
-    }
-
     if (body.length === 0) {
       res.status(400);
       res.json({ errors: [{ message: "Body is empty" }] });
@@ -132,15 +110,9 @@ router.post(
       .isString()
       .withMessage("'version' isn't a string'"),
     body("asset").optional().isString().withMessage("'asset' isn't a string'"),
+    validateInputResult,
   ],
   (req: Request, res: Response) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      res.status(400);
-      res.json({ errors: errors.array() });
-    }
-
     if (body.length === 0) {
       res.status(400);
       res.json({ errors: [{ message: "Body is empty" }] });
@@ -169,15 +141,9 @@ router.put(
       .optional()
       .isString()
       .withMessage("'description' isn't a string'"),
+    validateInputResult,
   ],
   (req: Request, res: Response) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      res.status(400);
-      res.json({ errors: errors.array() });
-    }
-
     if (body.length === 0) {
       res.status(400);
       res.json({ errors: [{ message: "Body is empty" }] });
