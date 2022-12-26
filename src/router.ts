@@ -123,14 +123,14 @@ router.post(
 
   [
     body("title")
-      .optional()
+      .exists()
       .isString()
       .withMessage("'title' isn't a string'")
       .isLength({ min: 6, max: 255 })
       .withMessage(
         "'title string has less than 6 or more than 255 characters'"
       ),
-    body("body").optional().isString().withMessage("'body' isn't a string'"),
+    body("body").exists().isString().withMessage("'body' isn't a string'"),
     oneOf([
       body("status")
         .optional()
