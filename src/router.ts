@@ -206,7 +206,7 @@ router.post(
   "/updatepoint",
   [
     body("name")
-      .optional()
+      .exists()
       .isString()
       .withMessage("'name' isn't a string'")
       .isLength({ min: 6, max: 255 })
@@ -214,18 +214,12 @@ router.post(
         "'name' string has less than 6 or more than 255 characters'"
       ),
     body("description")
-      .optional()
+      .exists()
       .isString()
       .withMessage("'description' isn't a string'"),
+    validateInputResult,
   ],
   (req: Request, res: Response) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      res.status(400);
-      res.json({ errors: errors.array() });
-    }
-
     if (body.length === 0) {
       res.status(400);
       res.json({ errors: [{ message: "Body is empty" }] });
