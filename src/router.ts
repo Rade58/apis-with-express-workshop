@@ -17,23 +17,41 @@ router.get("/product", (req, res) => {
 //
 router.get("/product/:id", (req, res) => {});
 //
-router.put("/product/:id", body("name").exists(), async (req, res) => {
-  const errors = validationResult(req);
+router.put(
+  "/product/:id",
+  body("name")
+    .exists({ checkNull: true })
+    .withMessage("'name' field doesn't exist on body!")
+    .isString()
+    .withMessage("'name' field isn't a string!"),
+  async (req, res) => {
+    //
+    const errors = validationResult(req);
 
-  if (!errors.isEmpty()) {
-    res.status(400);
+    if (!errors.isEmpty()) {
+      res.status(400);
+      //
+      const errorsArray = errors.array();
 
-    res.json({ errors: errors.array() });
+      // console.log({ errorsArray });
+      // console.log(process.env.DATABASE_URL);
+
+      res.json({ errors: errorsArray });
+      return;
+    }
+    console.log("It's ok");
+    res.end();
     return;
   }
-
-  res.end();
-  return;
-});
+);
 // create product
 router.post("/product", (req, res) => {});
 //
-router.delete("/product/:id", (req, res) => {});
+router.delete("/product/:id", (req, res) => {
+  console.log(req.query);
+  console.log(req.params);
+  res.end();
+});
 
 /**
  * Update

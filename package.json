@@ -4,7 +4,8 @@
   "description": "[WORKSHOP WEBSITE](https://hendrixer.github.io/API-design-v4/lessons/intro-to-express/easy-mode-with-express)",
   "main": "index.js",
   "scripts": {
-    "dev": "tsnd --respawn src/index.ts",
+    "devd": "nodemon src/index.ts",
+    "dev": "ts-node-dev --respawn --transpile-only --exit-child --watch src src/index.ts",
     "dev-scott": "ts-node src/index.ts",
     "build": "rm -rf dist && tsc",
     "start": "npm run build && node dist/index.js",
@@ -38,6 +39,7 @@
     "@types/morgan": "^1.9.3",
     "@types/node": "^18.11.17",
     "dotenv": "^16.0.3",
+    "nodemon": "^2.0.20",
     "prisma": "^4.8.0",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
