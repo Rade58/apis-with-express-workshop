@@ -111,6 +111,7 @@ router.put(
         UPDATE_STATUS.IN_PROGRESS,
         UPDATE_STATUS.LIVE,
       ])
+      .withMessage("status doesn't have right value")
       .optional(),
     //
     body("version")
@@ -173,6 +174,7 @@ router.post(
         UPDATE_STATUS.IN_PROGRESS,
         UPDATE_STATUS.LIVE,
       ])
+      .withMessage("status doesn't have right value")
       .optional(),
     //
     body("version")
