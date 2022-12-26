@@ -78,7 +78,7 @@ router.put(
         "'title string has less than 6 or more than 255 characters'"
       ),
     body("body").optional().isString().withMessage("'body' isn't a string'"),
-    oneOf([
+    /* oneOf([
       body("status")
         .optional()
         .isString()
@@ -103,7 +103,14 @@ router.put(
         .withMessage("'status' isn't a string'")
         .equals(UPDATE_STATUS.LIVE)
         .withMessage("provided value for 'UPDATE_STATUS' not right value"),
+    ]), */
+    body("status").isIn([
+      UPDATE_STATUS.ARCHIVED,
+      UPDATE_STATUS.DEPRECATED,
+      UPDATE_STATUS.IN_PROGRESS,
+      UPDATE_STATUS.LIVE,
     ]),
+    //
     body("version")
       .optional()
       .isString()
@@ -131,7 +138,7 @@ router.post(
         "'title string has less than 6 or more than 255 characters'"
       ),
     body("body").exists().isString().withMessage("'body' isn't a string'"),
-    oneOf([
+    /* oneOf([
       body("status")
         .optional()
         .isString()
@@ -156,7 +163,14 @@ router.post(
         .withMessage("'status' isn't a string'")
         .equals(UPDATE_STATUS.LIVE)
         .withMessage("provided value for 'UPDATE_STATUS' not right value"),
+    ]), */
+    body("status").isIn([
+      UPDATE_STATUS.ARCHIVED,
+      UPDATE_STATUS.DEPRECATED,
+      UPDATE_STATUS.IN_PROGRESS,
+      UPDATE_STATUS.LIVE,
     ]),
+    //
     body("version")
       .optional()
       .isString()
