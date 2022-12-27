@@ -1,6 +1,6 @@
 import type { Handler } from "express";
 import prisma from "../db";
-import type t from "../../types";
+import type t from "../../types"; // because Request augmentation
 
 export const getProducts: Handler = async (req, res) => {
   const user = await prisma.user.findUnique({
@@ -20,5 +20,29 @@ export const getProducts: Handler = async (req, res) => {
 
   res.status(200);
   res.json({ data: { products: user.products } });
+  return;
+};
+
+export const getProduct: Handler = async (req, res) => {
+  const productId = req.params.id;
+
+  const product = await prisma.product.findUnique({
+    where: {
+      id: productId,
+    },
+  });
+
+  if (!product) {
+    res.status(404);
+    res.json({ errors: [{ message: "product not found" }] });
+    return;
+  }
+
+  res.status(200);
+  res.json({
+    data: {
+      product,
+    },
+  });
   return;
 };
