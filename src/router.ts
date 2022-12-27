@@ -219,18 +219,23 @@ router.put(
 router.post(
   "/updatepoint",
   [
+    body("updateId")
+      .exists()
+      .withMessage("'updateId' doesn't exist")
+      .isString()
+      .withMessage("'updatePoint' isn't a string"),
     body("name")
       .exists()
+      .withMessage("'name' doesn't exist")
       .isString()
-      .withMessage("'name' isn't a string'")
+      .withMessage("'name' isn't a string")
       .isLength({ min: 6, max: 255 })
-      .withMessage(
-        "'name' string has less than 6 or more than 255 characters'"
-      ),
+      .withMessage("'name' string has less than 6 or more than 255 characters"),
     body("description")
       .exists()
+      .withMessage("'description' doesn't exist")
       .isString()
-      .withMessage("'description' isn't a string'"),
+      .withMessage("'description' isn't a string"),
     validateInputResult,
   ],
   (req: Request, res: Response) => {

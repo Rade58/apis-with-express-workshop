@@ -27,7 +27,7 @@ export const getUpdates: Handler = async (req, res) => {
 
   if (!user) {
     res.status(404);
-    res.json({ errors: [{ message: "updates not found" }] });
+    res.json({ errors: [{ message: "Updates not found!" }] });
     return;
   }
 
@@ -95,6 +95,12 @@ export const getUpdate: Handler = async (req, res) => {
   return;
 };
 
+/**
+ *
+ * @param req
+ * @param res
+ * @description creates new update record
+ */
 export const createUpdate: Handler = async (req, res) => {
   const userId = req.user.id;
   const productId: string = req.body.productId;
@@ -144,6 +150,12 @@ export const createUpdate: Handler = async (req, res) => {
   return;
 };
 
+/**
+ *
+ * @param req
+ * @param res
+ * @description updates update record
+ */
 export const updateUpdate: Handler = async (req, res) => {
   const userId = req.user.id;
   const updateId = req.params.id;
@@ -222,6 +234,7 @@ export const updateUpdate: Handler = async (req, res) => {
       asset: (req.body.asset as string | undefined)
         ? req.body.asset
         : existingUpdate.asset,
+      updatedAt: Date.now().toFixed(),
     },
   });
 
@@ -234,6 +247,12 @@ export const updateUpdate: Handler = async (req, res) => {
   return;
 };
 
+/**
+ *
+ * @param req
+ * @param res
+ * @description delets update record
+ */
 export const deleteUpdate: Handler = async (req, res) => {
   const userId = req.user.id;
   const updateId = req.params.id;
