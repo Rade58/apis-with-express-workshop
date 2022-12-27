@@ -88,10 +88,42 @@ export const createProduct: Handler = async (req, res) => {
   return;
 };
 
+/**
+ *
+ * @param req
+ * @param res
+ * @description updates product
+ */
 export const updateProduct: Handler = async (req, res) => {
   //
   const productId = req.params.id;
-  // const userId = req.user.id;
+  const userId = req.user.id;
+  // MAYBE WE SHOULD HAVE DO A CHECK IF PRODUCT BELONGS TO THE USER
+  const user = await prisma.user.findFirst({
+    where: {
+      AND: {
+        id: userId,
+        products: {
+          some: {
+            id: productId,
+          },
+        },
+      },
+    },
+  });
+
+  if (!user) {
+    res.status(401);
+    res.json({
+      errors: [
+        {
+          message:
+            "product update not allowed since product doesn't belong to the user",
+        },
+      ],
+    });
+    return;
+  }
 
   const product = await prisma.product.update({
     where: {
