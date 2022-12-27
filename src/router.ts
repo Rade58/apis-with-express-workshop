@@ -5,20 +5,23 @@ import { body, oneOf, validationResult } from "express-validator";
 
 import { validateInputResult } from "./modules/middlewares";
 
+import {
+  getProducts,
+  getProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} from "./handlers/product";
+
 const router = Router();
 
 /**
  * Product
  */
 // get all products
-router.get("/product", (req, res) => {
-  res.json({ product: "all" });
-  // res.status(200).send({ message: req.shsh_secret });
-  //
-  //
-});
+router.get("/product", getProducts);
 //
-router.get("/product/:id", (req, res) => {});
+router.get("/product/:id", getProduct);
 //
 router.put(
   "/product/:id",
@@ -30,13 +33,7 @@ router.put(
       .withMessage("'name' field isn't a string!"),
     validateInputResult,
   ],
-  async (req: Request, res: Response) => {
-    //
-
-    console.log("It's ok");
-    res.end();
-    return;
-  }
+  updateProduct
 );
 // create product
 router.post(
@@ -49,17 +46,10 @@ router.post(
       .withMessage("'name' field isn't a string"),
     validateInputResult,
   ],
-  async (req: Request, res: Response) => {
-    // TODO
-    // CONNECT PRODUCT TO THE USER
-  }
+  createProduct
 );
 //
-router.delete("/product/:id", (req, res) => {
-  console.log(req.query);
-  console.log(req.params);
-  res.end();
-});
+router.delete("/product/:id", deleteProduct);
 
 /**
  * Update
