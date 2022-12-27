@@ -44,7 +44,7 @@ export const getUpdates: Handler = async (req, res) => {
       if (acumulatedUpdatesArray !== product.updates) {
         return [...acumulatedUpdatesArray, ...product.updates];
       } else {
-        return [];
+        return [...acumulatedUpdatesArray];
       }
     },
     user.products[0].updates
