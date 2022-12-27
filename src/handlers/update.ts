@@ -3,6 +3,12 @@ import prisma from "../db";
 import type t from "../../types";
 import { Update } from "@prisma/client";
 
+/**
+ *
+ * @param req
+ * @param res
+ * @description get all updates for the user (no matter of related product)
+ */
 export const getUpdates: Handler = async (req, res) => {
   const userId = req.user.id;
 
@@ -42,6 +48,12 @@ export const getUpdates: Handler = async (req, res) => {
   return;
 };
 
+/**
+ *
+ * @param req
+ * @param res
+ * @description get exact update for the user (no matter of the product)
+ */
 export const getUpdate: Handler = async (req, res) => {
   const userId = req.user.id;
   const updateId = req.params.id;
@@ -81,4 +93,16 @@ export const getUpdate: Handler = async (req, res) => {
     },
   });
   return;
+};
+
+export const createUpdate: Handler = async (req, res) => {
+  //
+};
+
+export const updateUpdate: Handler = async (req, res) => {
+  //
+};
+
+export const deleteUpdate: Handler = async (req, res) => {
+  //
 };
