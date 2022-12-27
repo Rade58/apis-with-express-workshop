@@ -39,8 +39,46 @@ export const getUpdates: Handler = async (req, res) => {
       updates,
     },
   });
+  return;
 };
 
 export const getUpdate: Handler = async (req, res) => {
   const userId = req.user.id;
+  const updateId = req.params.id;
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      products: {
+        where: {
+          updates: {
+            every: {
+              id: updateId,
+            },
+          },
+        },
+        include: {
+          updates: true,
+        },
+      },
+    },
+  });
+
+  if (!user) {
+    res.status(404);
+    res.json({ errors: [{ message: "update not found" }] });
+    return;
+  }
+
+  const update = user.products[0].updates[0];
+
+  res.status(200);
+  res.json({
+    data: {
+      update,
+    },
+  });
+  return;
 };
