@@ -157,6 +157,9 @@ export const createUpdatePoints: Handler = async (req, res) => {
 //
 //
 export const updateUpdatePoints: Handler = async (req, res) => {
+  const userId = req.user.id;
+  const updatePointId = req.params.id;
+
   //
 };
 export const deleteUpdatePoints: Handler = async (req, res) => {
