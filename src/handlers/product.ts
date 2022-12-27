@@ -87,3 +87,23 @@ export const createProduct: Handler = async (req, res) => {
 
   return;
 };
+
+export const updateProduct: Handler = async (req, res) => {
+  //
+  const productId = req.params.id;
+  // const userId = req.user.id;
+
+  const product = await prisma.product.update({
+    where: {
+      id: productId,
+    },
+    data: {
+      name: req.body.name,
+      // belongsToId: userId,
+    },
+  });
+
+  res.status(200);
+  res.json({ data: product });
+  return;
+};
