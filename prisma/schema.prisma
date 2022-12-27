@@ -42,9 +42,9 @@ model Product {
 }
 
 model Update {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
 
   title   String        @db.VarChar(255)
   body    String
@@ -56,6 +56,8 @@ model Update {
 
   product   Product @relation(fields: [productId], references: [id])
   productId String
+
+  @@unique([id, productId])
 }
 
 model UpdatePoint {

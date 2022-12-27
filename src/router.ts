@@ -122,7 +122,13 @@ router.post(
   "/update",
 
   [
+    body("productId")
+      .exists()
+      .withMessage("'productId' doesn't exist")
+      .isString()
+      .withMessage("'productId' isn't a string'"),
     body("title")
+      .withMessage("'title' doesn't exist")
       .exists()
       .isString()
       .withMessage("'title' isn't a string'")
