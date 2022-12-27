@@ -245,7 +245,7 @@ export const updateUpdate: Handler = async (req, res) => {
       asset: (req.body.asset as string | undefined)
         ? req.body.asset
         : existingUpdate.asset,
-      updatedAt: Date.now().toFixed(),
+      updatedAt: new Date(),
     },
   });
 

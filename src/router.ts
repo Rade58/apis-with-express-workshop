@@ -75,6 +75,11 @@ router.get("/update/:id", getUpdate);
 router.put(
   "/update/:id",
   [
+    body("productId")
+      .exists()
+      .withMessage("'productId' doesn't exist")
+      .isString()
+      .withMessage("'productId' isn't a string'"),
     body("title")
       .optional()
       .isString()
@@ -139,8 +144,8 @@ router.post(
       .isString()
       .withMessage("'productId' isn't a string'"),
     body("title")
-      .withMessage("'title' doesn't exist")
       .exists()
+      .withMessage("'title' doesn't exist")
       .isString()
       .withMessage("'title' isn't a string'")
       .isLength({ min: 6, max: 255 })
