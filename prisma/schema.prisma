@@ -37,6 +37,8 @@ model Product {
   belongsToId String
 
   updates Update[]
+
+  @@unique([id, belongsToId])
 }
 
 model Update {

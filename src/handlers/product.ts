@@ -99,7 +99,7 @@ export const updateProduct: Handler = async (req, res) => {
   const productId = req.params.id;
   const userId = req.user.id;
   // MAYBE WE SHOULD HAVE DO A CHECK IF PRODUCT BELONGS TO THE USER
-  const user = await prisma.user.findFirst({
+  /* const user = await prisma.user.findFirst({
     where: {
       AND: {
         id: userId,
@@ -123,11 +123,15 @@ export const updateProduct: Handler = async (req, res) => {
       ],
     });
     return;
-  }
+  } */
 
   const product = await prisma.product.update({
     where: {
-      id: productId,
+      // WE HAD TO WRITE COMPOUND INDEX IN SCHEMA FOR THIS TO WORK
+      id_belongsToId: {
+        belongsToId: userId,
+        id: productId,
+      },
     },
     data: {
       name: req.body.name,
@@ -144,7 +148,7 @@ export const deleteProduct: Handler = async (req, res) => {
   const productId = req.params.id;
   const userId = req.user.id;
   // MAYBE WE SHOULD HAVE DO A CHECK IF PRODUCT BELONGS TO THE USER
-  const user = await prisma.user.findFirst({
+  /* const user = await prisma.user.findFirst({
     where: {
       AND: {
         id: userId,
@@ -168,11 +172,12 @@ export const deleteProduct: Handler = async (req, res) => {
       ],
     });
     return;
-  }
+  } */
 
   const deletedProduct = await prisma.product.delete({
     where: {
-      id: productId,
+      // WE HAD TO WRITE COMPOUND INDEX IN SCHEMA FOR THIS TO WORK
+      id_belongsToId: { belongsToId: userId, id: productId },
     },
   });
 
