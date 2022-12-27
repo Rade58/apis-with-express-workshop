@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { prisma, UPDATE_STATUS } from "@prisma/client";
+import { UPDATE_STATUS } from "@prisma/client";
 
 import { body /*  oneOf, validationResult */ } from "express-validator";
 
@@ -20,6 +20,14 @@ import {
   updateUpdate,
   deleteUpdate,
 } from "./handlers/update";
+
+import {
+  getUpdatePoints,
+  getUpdatePoint,
+  createUpdatePoint,
+  updateUpdatePoint,
+  deleteUpdatePoint,
+} from "./handlers/updatePoint";
 
 const router = Router();
 
@@ -190,8 +198,8 @@ router.delete("/update/:id", deleteUpdate);
 /**
  * UpdatePoint
  */
-router.get("/updatepoint", (req, res) => {});
-router.get("/updatepoint/:id", (req, res) => {});
+router.get("/updatepoint", getUpdatePoints);
+router.get("/updatepoint/:id", getUpdatePoint);
 router.put(
   "/updatepoint/:id",
   [
@@ -209,12 +217,7 @@ router.put(
       .withMessage("'description' isn't a string'"),
     validateInputResult,
   ],
-  (req: Request, res: Response) => {
-    if (body.length === 0) {
-      res.status(400);
-      res.json({ errors: [{ message: "Body is empty" }] });
-    }
-  }
+  updateUpdatePoint
 );
 router.post(
   "/updatepoint",
@@ -238,13 +241,8 @@ router.post(
       .withMessage("'description' isn't a string"),
     validateInputResult,
   ],
-  (req: Request, res: Response) => {
-    if (body.length === 0) {
-      res.status(400);
-      res.json({ errors: [{ message: "Body is empty" }] });
-    }
-  }
+  createUpdatePoint
 );
-router.delete("/updatepoint/:id", (req, res) => {});
+router.delete("/updatepoint/:id", deleteUpdatePoint);
 
 export default router;

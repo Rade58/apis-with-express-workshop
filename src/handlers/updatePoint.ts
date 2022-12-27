@@ -102,7 +102,7 @@ export const getUpdatePoint: Handler = async (req, res) => {
  * @param res
  * @description creates update point
  */
-export const createUpdatePoints: Handler = async (req, res) => {
+export const createUpdatePoint: Handler = async (req, res) => {
   //
   const userId = req.user.id;
   const updateId: string = req.body.updateId;
@@ -156,7 +156,7 @@ export const createUpdatePoints: Handler = async (req, res) => {
 
 //
 //
-export const updateUpdatePoints: Handler = async (req, res) => {
+export const updateUpdatePoint: Handler = async (req, res) => {
   const userId = req.user.id;
   const updatePointId = req.params.id;
 
@@ -234,7 +234,7 @@ export const updateUpdatePoints: Handler = async (req, res) => {
     },
   });
 };
-export const deleteUpdatePoints: Handler = async (req, res) => {
+export const deleteUpdatePoint: Handler = async (req, res) => {
   //
   const userId = req.user.id;
   const updatePointId = req.params.id;
