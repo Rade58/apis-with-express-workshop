@@ -25,10 +25,12 @@ export const getProducts: Handler = async (req, res) => {
 
 export const getProduct: Handler = async (req, res) => {
   const productId = req.params.id;
+  const userId = req.user.id;
 
-  const product = await prisma.product.findUnique({
+  const product = await prisma.product.findFirst({
     where: {
       id: productId,
+      belongsToId: userId,
     },
   });
 
