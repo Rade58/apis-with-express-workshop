@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { prisma, UPDATE_STATUS } from "@prisma/client";
 
-import { body, oneOf, validationResult } from "express-validator";
+import { body /*  oneOf, validationResult */ } from "express-validator";
 
 import { validateInputResult } from "./modules/middlewares";
 
@@ -12,6 +12,14 @@ import {
   updateProduct,
   deleteProduct,
 } from "./handlers/product";
+
+import {
+  getUpdates,
+  getUpdate,
+  createUpdate,
+  updateUpdate,
+  deleteUpdate,
+} from "./handlers/update";
 
 const router = Router();
 
@@ -54,8 +62,8 @@ router.delete("/product/:id", deleteProduct);
 /**
  * Update
  */
-router.get("/update", (req, res) => {});
-router.get("/update/:id", (req, res) => {});
+router.get("/update", getUpdates);
+router.get("/update/:id", getUpdate);
 router.put(
   "/update/:id",
   [
@@ -111,12 +119,7 @@ router.put(
     body("asset").optional().isString().withMessage("'asset' isn't a string'"),
     validateInputResult,
   ],
-  (req: Request, res: Response) => {
-    if (body.length === 0) {
-      res.status(400);
-      res.json({ errors: [{ message: "Body is empty" }] });
-    }
-  }
+  updateUpdate
 );
 router.post(
   "/update",
@@ -180,14 +183,9 @@ router.post(
     body("asset").optional().isString().withMessage("'asset' isn't a string'"),
     validateInputResult,
   ],
-  (req: Request, res: Response) => {
-    if (body.length === 0) {
-      res.status(400);
-      res.json({ errors: [{ message: "Body is empty" }] });
-    }
-  }
+  createUpdate
 );
-router.delete("/update/:id", (req, res) => {});
+router.delete("/update/:id", deleteUpdate);
 
 /**
  * UpdatePoint
