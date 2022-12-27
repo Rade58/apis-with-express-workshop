@@ -31,13 +31,24 @@ export const getUpdates: Handler = async (req, res) => {
     return;
   }
 
-  const updates: Update[] = [];
+  /* const updates: Update[] = [];
 
   user.products.forEach(({ updates: upds }) => {
     for (const update of upds) {
       updates.push(update);
     }
-  });
+  }); */
+
+  const updates: Update[] = user.products.reduce(
+    (acumulatedUpdatesArray, product) => {
+      if (acumulatedUpdatesArray !== product.updates) {
+        return [...acumulatedUpdatesArray, ...product.updates];
+      } else {
+        return [];
+      }
+    },
+    user.products[0].updates
+  );
 
   res.status(200);
   res.json({
