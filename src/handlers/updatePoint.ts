@@ -160,8 +160,133 @@ export const updateUpdatePoints: Handler = async (req, res) => {
   const userId = req.user.id;
   const updatePointId = req.params.id;
 
-  //
+  // finding relation between user and the updatePointId
+  const product = await prisma.product.findFirst({
+    where: {
+      AND: {
+        belongsToId: userId,
+        updates: {
+          some: {
+            updatePoints: {
+              some: {
+                id: updatePointId,
+              },
+            },
+          },
+        },
+      },
+    },
+    select: {
+      updates: {
+        select: {
+          updatePoints: true,
+        },
+      },
+    },
+  });
+
+  if (!product) {
+    res.status(401);
+    res.json({
+      errors: [
+        {
+          message:
+            "product which updatate point we want to update doesn't belong to the user",
+        },
+      ],
+    });
+    return;
+  }
+
+  const existingUpdatePoint = await prisma.updatePoint.findUnique({
+    where: {
+      id: updatePointId,
+    },
+  });
+
+  if (!existingUpdatePoint) {
+    res.status(401);
+    res.json({
+      errors: [
+        { message: "UpdatePoint Record you want to update doesn't exist" },
+      ],
+    });
+    return;
+  }
+
+  const updatePoint = await prisma.updatePoint.update({
+    where: {
+      id: updatePointId,
+    },
+    data: {
+      name: req.body.name ? req.body.name : existingUpdatePoint.name,
+      description: req.body.description
+        ? req.body.description
+        : existingUpdatePoint.description,
+      updatedAt: Date.now().toFixed(),
+    },
+  });
+
+  res.status(200);
+  res.json({
+    data: {
+      updatePoint,
+    },
+  });
 };
 export const deleteUpdatePoints: Handler = async (req, res) => {
   //
+  const userId = req.user.id;
+  const updatePointId = req.params.id;
+
+  // finding relation between user and the updatePointId
+  const product = await prisma.product.findFirst({
+    where: {
+      AND: {
+        belongsToId: userId,
+        updates: {
+          some: {
+            updatePoints: {
+              some: {
+                id: updatePointId,
+              },
+            },
+          },
+        },
+      },
+    },
+    select: {
+      updates: {
+        select: {
+          updatePoints: true,
+        },
+      },
+    },
+  });
+
+  if (!product) {
+    res.status(401);
+    res.json({
+      errors: [
+        {
+          message:
+            "product which updatate point we want to delete doesn't belong to the user",
+        },
+      ],
+    });
+    return;
+  }
+
+  const deletedUpdatePoint = await prisma.updatePoint.delete({
+    where: {
+      id: updatePointId,
+    },
+  });
+
+  res.status(200);
+  res.json({
+    data: {
+      deletedUpdatePoint,
+    },
+  });
 };
