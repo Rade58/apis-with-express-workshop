@@ -223,7 +223,7 @@ export const updateUpdatePoint: Handler = async (req, res) => {
       description: req.body.description
         ? req.body.description
         : existingUpdatePoint.description,
-      updatedAt: Date.now().toFixed(),
+      // updatedAt: new Date(),
     },
   });
 
