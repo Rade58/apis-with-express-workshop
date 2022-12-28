@@ -48,6 +48,10 @@ app.use(express.urlencoded({ extended: true }));
   next();
 }); */
 
+app.get("/hello-world", async (req, res) => {
+  throw new Error("Hello World Error!");
+});
+
 //
 app.use("/api", [protect], router);
 
