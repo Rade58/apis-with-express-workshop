@@ -77,8 +77,15 @@ app.post("/signin", signIn);
 // -----------------------------
 // -----------------------------
 // -----------------------------
-app.get("/hello-world", (req, res) => {
+// IF YOU HIT THIS ROUTE, SERVER WILL CHRACH
+app.get("/hello-world", async (req, res) => {
   throw new Error("Hello World Error!");
+});
+// IF YOU HIT THIS ROUTE, SERVER WILL CHRACH
+app.get("/foo-bar", (req, res) => {
+  setTimeout(() => {
+    throw new Error("Foo Bar!");
+  }, 200);
 });
 
 // A GOOD PLACE TO PUT ERROR ANDLER SINCE IT WILL
