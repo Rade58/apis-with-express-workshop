@@ -1,5 +1,5 @@
 import express from "express";
-import type { Errback, Request, Response, NextFunction } from "express";
+import type { Request, Response, NextFunction } from "express";
 import router from "./router";
 import morgan from "morgan";
 import cors from "cors";
@@ -86,10 +86,10 @@ app.get("/hello-world", (req, res) => {
 
 // REMMBER THAT THIS WILL NOT CATCH ERROR IF ERROR IS THROWN FROM async
 
-app.use((err: Errback, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   //
   //
-  console.log({ err });
+  console.log({ err: err.message });
 
   res.json({ message: "oooooooooooops" });
 });
