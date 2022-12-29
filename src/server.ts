@@ -1,4 +1,5 @@
 import express from "express";
+import type { Errback, Request, Response, NextFunction } from "express";
 import router from "./router";
 import morgan from "morgan";
 import cors from "cors";
@@ -48,10 +49,6 @@ app.use(express.urlencoded({ extended: true }));
   next();
 }); */
 
-app.get("/hello-world", async (req, res) => {
-  throw new Error("Hello World Error!");
-});
-
 //
 app.use("/api", [protect], router);
 
@@ -75,5 +72,26 @@ app.use("/api", [protect], router);
 
 app.post("/user", createNewUser);
 app.post("/signin", signIn);
+
+// -----------------------------
+// -----------------------------
+// -----------------------------
+// -----------------------------
+app.get("/hello-world", (req, res) => {
+  throw new Error("Hello World Error!");
+});
+
+// A GOOD PLACE TO PUT ERROR ANDLER SINCE IT WILL
+// CATCH ERRORS THAT COME FROM HANDLERS ABOVE
+
+// REMMBER THAT THIS WILL NOT CATCH ERROR IF ERROR IS THROWN FROM async
+
+app.use((err: Errback, req: Request, res: Response, next: NextFunction) => {
+  //
+  //
+  console.log({ err });
+
+  res.json({ message: "oooooooooooops" });
+});
 
 export default app;
