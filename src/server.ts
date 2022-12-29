@@ -95,10 +95,10 @@ app.get("/foo-bar", (req, res, next) => {
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   //
-  //
   console.log({ err: err.message });
-
+  //
   res.json({ message: "oooooooooooops" });
+  //
 });
 
 export default app;
