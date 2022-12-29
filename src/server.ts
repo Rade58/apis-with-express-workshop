@@ -77,14 +77,14 @@ app.post("/signin", signIn);
 // -----------------------------
 // -----------------------------
 // -----------------------------
-// IF YOU HIT THIS ROUTE, SERVER WILL CHRACH
-app.get("/hello-world", async (req, res) => {
-  throw new Error("Hello World Error!");
+// THIS TIME ERROR IS BING PASSED TO next
+app.get("/hello-world", async (req, res, next) => {
+  next(new Error("Hello World Error!"));
 });
-// IF YOU HIT THIS ROUTE, SERVER WILL CHRACH
-app.get("/foo-bar", (req, res) => {
+// ALSO IN THIS ROUTE I ALSO PASSED ERROR TO THE next
+app.get("/foo-bar", (req, res, next) => {
   setTimeout(() => {
-    throw new Error("Foo Bar!");
+    next(new Error("Foo Bar!"));
   }, 200);
 });
 
