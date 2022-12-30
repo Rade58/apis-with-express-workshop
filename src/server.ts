@@ -93,12 +93,27 @@ app.get("/foo-bar", (req, res, next) => {
 
 // REMMBER THAT THIS WILL NOT CATCH ERROR IF ERROR IS THROWN FROM async
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  //
-  console.log({ err: err.message });
-  //
-  res.json({ message: "oooooooooooops" });
-  //
-});
+app.use(
+  (
+    err: Error & { type: string },
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    // WE WILL BE PSSING TYPE TOGETHER WITH ERROR WHEN
+    // WE HANDLE ERRORS
+
+    if (err.type === "auth") {
+      res.status(401).json({ errors: [{ message: "Unauthorized!" }] });
+      return;
+    } else if (err.type === "input") {
+      res.status(401).json({ errors: [{ message: "Invalid input!" }] });
+      return;
+    } else {
+      res.status(500).json({ errors: [{ message: "Oooooops, our bad!" }] });
+      return;
+    }
+  }
+);
 
 export default app;
