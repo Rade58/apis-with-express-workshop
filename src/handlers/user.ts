@@ -34,7 +34,11 @@ export const createNewUser = async (
     res.status(201);
     res.json({ token });
   } catch (err) {
-    next(err);
+    if (err instanceof Error) {
+      next({ ...err, type: "input" });
+    } else {
+      next(new Error("input"));
+    }
   }
 };
 

@@ -93,6 +93,10 @@ app.get("/foo-bar", (req, res, next) => {
 
 // REMMBER THAT THIS WILL NOT CATCH ERROR IF ERROR IS THROWN FROM async
 
+// BUT REMEMBER THAT THIS HANDLER DOESN'T BELONG TO ANY
+// SUB ROUTES
+// FOR SUB ROUTER WE NEED TO DEFINE NEW HANDLER
+
 app.use(
   (
     err: Error & { type: string },

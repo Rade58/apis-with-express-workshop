@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import { UPDATE_STATUS } from "@prisma/client";
 
 import { body /*  oneOf, validationResult */ } from "express-validator";
@@ -249,5 +249,25 @@ router.post(
   createUpdatePoint
 );
 router.delete("/updatepoint/:id", deleteUpdatePoint);
+
+router.use(
+  (
+    err: Error & { type: string },
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    if (err.type === "auth") {
+      res.status(401).json({ errors: [{ message: "Unauthorized!" }] });
+      return;
+    } else if (err.type === "input") {
+      res.status(401).json({ errors: [{ message: "Invalid input!" }] });
+      return;
+    } else {
+      res.status(500).json({ errors: [{ message: "Oooooops, our bad!" }] });
+      return;
+    }
+  }
+);
 
 export default router;
