@@ -8,6 +8,7 @@ describe("user handler", () => {
   it("should create new user", async () => {
     const req = { body: { username: "hel", password: "world" } };
     const res = {
+      // @ts-ignore
       json({ token }) {
         console.log({ token });
 
