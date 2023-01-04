@@ -21,3 +21,5 @@ const defaultConfig = {
   port: process.env.PORT,
   logging: false,
 };
+
+export default merge(defaultConfig, envConfig);
