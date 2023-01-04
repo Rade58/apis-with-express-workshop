@@ -49,6 +49,10 @@ app.use(express.urlencoded({ extended: true }));
   next();
 }); */
 
+app.get("/", (req, res, next) => {
+  res.json({ hello: "world" });
+});
+
 //
 app.use("/api", [protect], router);
 
