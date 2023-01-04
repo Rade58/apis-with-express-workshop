@@ -1,4 +1,4 @@
 export default {
-  // port: process.env.PORT,
-  port: 5000,
+  port: process.env.PORT,
+  // port: 5000,
 };
