@@ -7,8 +7,8 @@
     "devd": "nodemon src/index.ts",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child --watch src src/index.ts",
     "dev-scott": "ts-node src/index.ts",
-    "build": "rm -rf dist && tsc",
-    "start": "npm run build && node dist/index.js",
+    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "start": "node dist/index.js",
     "test": "jest"
   },
   "repository": {
