@@ -1,7 +1,6 @@
 {
   "name": "apis-with-express",
   "version": "1.0.0",
-  "description": "[WORKSHOP WEBSITE](https://hendrixer.github.io/API-design-v4/lessons/intro-to-express/easy-mode-with-express)",
   "main": "index.js",
   "scripts": {
     "devd": "nodemon src/index.ts",
@@ -12,16 +11,11 @@
     "test": "jest"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Rade58/apis-with-express-workshop.git"
+    "type": "git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Rade58/apis-with-express-workshop/issues"
-  },
-  "homepage": "https://github.com/Rade58/apis-with-express-workshop#readme",
   "dependencies": {
     "@prisma/client": "^4.8.0",
     "bcrypt": "^5.1.0",
